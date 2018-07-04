@@ -179,8 +179,12 @@ func PopulateCombinations() {
 
 // PrintElements x
 func PrintElements() {
+	numberOfChildren := func(e1, e2 *Element) bool {
+		return len(e1.Children) < len(e2.Children)
+	}
+	By(numberOfChildren).Sort(orderedElements)
 	for _, e := range orderedElements {
-		if e.IsCompleted() && !e.HasIncompleteChildren() {
+		if !e.HasIncompleteChildren() {
 			continue
 		}
 		e.Info()
